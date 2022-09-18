@@ -1,4 +1,3 @@
-const base32 = require('thirty-two');
 const axios = require('axios');
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -45,7 +44,7 @@ exports.handler = async(event, context) => {
             body: err
         };
     }
-    const finalSecret = base32.encode(duoResponse.hotp_secret).toString()
+    const finalSecret = duoResponse.hotp_secret
     try {
         const res = await getValues(API_KEY)
         if (!res || res === {} || !res.Item) {
