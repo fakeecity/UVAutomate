@@ -11,7 +11,6 @@ chrome.storage.local.get(function (result) {
     document.getElementById('k_password').value = result.input.k_password;
   }
   document.getElementById('saveKey').addEventListener('click', function () {
-    console.log('button clicked');
     const key = document.getElementById('apivalue').value;
     const user = document.getElementById('k_username').value;
     const pass = document.getElementById('k_password').value;
@@ -19,10 +18,7 @@ chrome.storage.local.get(function (result) {
   });
 });
 function submit(key, user, pass) {
-  chrome.storage.local.set(
-    { input: { apikey: key, k_username: user, k_password: pass } },
-    function () {
-      console.log('Data Updated! ' + key + ':' + user + ':' + pass);
-    }
-  );
+  chrome.storage.local.set({ input: { apikey: key, k_username: user, k_password: pass } }, function () {
+    console.log('Data Updated! ' + key + ':' + user + ':' + pass);
+  });
 }

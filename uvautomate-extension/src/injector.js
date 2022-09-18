@@ -33,43 +33,30 @@ function run() {
 }
 
 async function mySettings() {
-  console.log(document.getElementById('device').value);
-  document
-    .querySelector('.new-device')
-    .querySelector('input[name="pname"]').value = 'UVAutomate';
+  document.querySelector('.new-device').querySelector('input[name="pname"]').value = 'UVAutomate';
   document.querySelector('.new-device').querySelector('.edit-submit').click();
   await waitForElement('.message-text');
   const correct = getCorrectDevice();
   if (correct != -1) {
     document.getElementById('device').value = correct;
   }
-  console.log('correct' + correct);
-  console.log(document.getElementById('device').value);
   document.getElementById('continue-to-login').click();
 }
 
 async function activateDuo() {
   if (document.querySelector('img[class="qr"]')) {
     const codeReader = new BrowserQRCodeReader();
-    const resultImage = await codeReader.decodeFromImageElement(
-      document.querySelector('img[class="qr"]')
-    );
+    const resultImage = await codeReader.decodeFromImageElement(document.querySelector('img[class="qr"]'));
     const apikey = (await chrome.storage.local.get('input')).input.apikey;
     try {
-      await fetch(
-        `https://api2.fake.fm/onboarding?api=` +
-          apikey +
-          '&userQrURI=' +
-          resultImage,
-        {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'X-Api-Key': `${apikey}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      await fetch(`https://api2.fake.fm/onboarding?api=` + apikey + '&userQrURI=' + resultImage, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'X-Api-Key': `${apikey}`,
+          'Content-Type': 'application/json',
+        },
+      });
     } catch (err) {
       alert('you fucked up');
       throw 'you fucked up';
@@ -98,14 +85,10 @@ function mobilePlatforms() {
 }
 
 function topFrame() {
-  if(document.querySelector('.hidden-sm-down')) {
+  if (document.querySelector('.hidden-sm-down')) {
     switch (document.querySelector('.hidden-sm-down').innerText) {
       case 'Your first authentication step when logging in to UVA systems':
-        if (
-          document.querySelector('.error') &&
-          document.querySelector('.error').innerText ===
-            'Incorrect computing ID or password'
-        ) {
+        if (document.querySelector('.error') && document.querySelector('.error').innerText === 'Incorrect computing ID or password') {
           break;
         }
         netBadgeLogin();
@@ -123,29 +106,15 @@ function topFrame() {
 
 async function netBadgeLogin() {
   const auth = (await chrome.storage.local.get('input')).input;
-  fillField(
-    document.querySelector('input[name="j_username"]'),
-    auth.k_username
-  );
-  fillField(
-    document.querySelector('input[name="j_password"]'),
-    auth.k_password
-  );
+  fillField(document.querySelector('input[name="j_username"]'), auth.k_username);
+  fillField(document.querySelector('input[name="j_password"]'), auth.k_password);
   document.querySelector('input[name="_eventId_proceed"]').click();
 }
 
 async function duoLogin() {
   if (document.querySelector('select[name="device"]')) {
-    console.log(
-      document.querySelector('select[name="device"]').options[0].innerText
-    );
-    if (
-      document
-        .querySelector('select[name="device"]')
-        .options[0].innerText.trim() === 'UVAutomate (iOS)'
-    ) {
+    if (document.querySelector('select[name="device"]').options[0].innerText.trim() === 'UVAutomate (iOS)') {
       const code = await getCode();
-      console.log(code);
       submitCode(code);
     } else {
       const correct = getLoginDevice();
@@ -183,13 +152,8 @@ async function getCode() {
 
 function getCorrectDevice() {
   for (var option in document.getElementById('device').options) {
-    console.log(option);
-    console.log(document.getElementById('device').options[option].innerText);
     if (document.getElementById('device').options[option].innerText) {
-      if (
-        document.getElementById('device').options[option].innerText.trim() ===
-        'UVAutomate'
-      ) {
+      if (document.getElementById('device').options[option].innerText.trim() === 'UVAutomate') {
         return document.getElementById('device').options[option].value;
       }
     }
@@ -199,20 +163,9 @@ function getCorrectDevice() {
 
 function getLoginDevice() {
   for (var option in document.querySelector('select[name="device"]').options) {
-    console.log(option);
-    console.log(
-      document.querySelector('select[name="device"]').options[option].innerText
-    );
-    if (
-      document.querySelector('select[name="device"]').options[option].innerText
-    ) {
-      if (
-        document
-          .querySelector('select[name="device"]')
-          .options[option].innerText.trim() === 'UVAutomate (iOS)'
-      ) {
-        return document.querySelector('select[name="device"]').options[option]
-          .value;
+    if (document.querySelector('select[name="device"]').options[option].innerText) {
+      if (document.querySelector('select[name="device"]').options[option].innerText.trim() === 'UVAutomate (iOS)') {
+        return document.querySelector('select[name="device"]').options[option].value;
       }
     }
   }
