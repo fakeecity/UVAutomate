@@ -2,11 +2,11 @@
 Extension and Serverless Functions for the Automation of UVA's Netbadge
 
 > # Components
-> **[Serverless Secret Generator](https://github.com/Alpha-Iota-Omega/UVAutomate/tree/main/lambda-secret)** *(100%)*
+> **[Serverless Secret Generator](https://github.com/Alpha-Iota-Omega/UVAutomate/tree/main/lambda-logsecret)** *(100%)*
 > - Ran as Serverless Function on AWS Lambda (Connected to UVAutomate API Gateway)
 > - Used in the onboarding flow, takes in string from decoded QR code and stores base32 encoded secret
 >
-> **[Serverless HOTP Code Generator](https://github.com/Alpha-Iota-Omega/UVAutomate/tree/main/lambda-gen)** *(100%)*
+> **[Serverless HOTP Code Generator](https://github.com/Alpha-Iota-Omega/UVAutomate/tree/main/lambda-codegen)** *(100%)*
 > - Ran as Serverless Function on AWS Lambda (Connected to UVAutomate API Gateway)
 > - Called during login, fetches secret from DDB and returns current iterative HOTP
 >

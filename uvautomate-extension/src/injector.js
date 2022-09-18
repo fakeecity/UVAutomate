@@ -1,4 +1,5 @@
 'use strict';
+
 import { BrowserQRCodeReader } from '@zxing/browser';
 
 document.addEventListener('DOMContentLoaded', run());
@@ -88,7 +89,6 @@ function typeOfDevice() {
 }
 
 function newDevice() {
-  console.log('mobilePlatforms');
   alert('Setup: you must manually enter 2fa for this step.');
 }
 
@@ -98,25 +98,26 @@ function mobilePlatforms() {
 }
 
 function topFrame() {
-  console.log('hi from the top frame');
-  switch (document.querySelector('.hidden-sm-down').innerText) {
-    case 'Your first authentication step when logging in to UVA systems':
-      if (
-        document.querySelector('.error') &&
-        document.querySelector('.error').innerText ===
-          'Incorrect computing ID or password'
-      ) {
+  if(document.querySelector('.hidden-sm-down')) {
+    switch (document.querySelector('.hidden-sm-down').innerText) {
+      case 'Your first authentication step when logging in to UVA systems':
+        if (
+          document.querySelector('.error') &&
+          document.querySelector('.error').innerText ===
+            'Incorrect computing ID or password'
+        ) {
+          break;
+        }
+        netBadgeLogin();
         break;
-      }
-      netBadgeLogin();
-      break;
-    case 'Your second authentication step when logging in to UVA systems':
-      break;
-    case 'Stale Request':
-      expired();
-      break;
-    default:
-      break;
+      case 'Your second authentication step when logging in to UVA systems':
+        break;
+      case 'Stale Request':
+        expired();
+        break;
+      default:
+        break;
+    }
   }
 }
 
@@ -151,7 +152,7 @@ async function duoLogin() {
       if (correct != -1) {
         document.querySelector('select[name="device"]').value = correct;
         const code = await getCode();
-        console.log(code);
+        submitCode(code);
       } else {
         duoOnboard();
       }
