@@ -1,4 +1,4 @@
-# <img src="/uvautomate-extension/public/icons/uva48.png" width="48" align="left"> UVAutomate
+# <img src="/uvautomate-extension/public/icons/uva128.png" width="40" align="left"> UVAutomate
 Extension and Serverless Functions for the Automation of UVA's Netbadge
 
 > # Components
