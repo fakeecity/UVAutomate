@@ -1,5 +1,6 @@
 # <img src="/uvautomate-extension/public/icons/uva128.png" width="40" align="left"> UVAutomate
 **Warning: This version is deprecated and is no longer maintained. Please use [Version 1.0](https://github.com/fakeecity/UVAutomate-V1) instead.**
+
 Extension and Serverless Functions for the Automation of UVA's Netbadge
 
 > # Components
